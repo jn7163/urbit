@@ -257,7 +257,7 @@ collectAllFx top = do
         logTrace "Done collecting effects!"
   where
     tmpDir :: FilePath
-    tmpDir = top <> "/.tmpdir"
+    tmpDir = top </> ".tmpdir"
 
     collectedFX :: RAcquire e ()
     collectedFX = do
