@@ -17,10 +17,9 @@ import Urbit.King.Config
 import Urbit.Vere.Pier.Types
 import Control.Monad.Trans.Maybe
 
-import Data.List              (uncons)
 import Data.Text              (append)
 import System.Posix.Files     (ownerModes, setFileMode)
-import Urbit.King.App         (HasConfigDir(..))
+import Urbit.King.App         (HasConfigDir(..), HasStderrLogFunc(..))
 import Urbit.Vere.Ames        (ames)
 import Urbit.Vere.Behn        (behn)
 import Urbit.Vere.Clay        (clay)
@@ -94,7 +93,7 @@ writeJobs log !jobs = do
 
 -- Boot a new ship. ------------------------------------------------------------
 
-booted :: (HasPierConfig e, HasLogFunc e)
+booted :: (HasPierConfig e, HasStderrLogFunc e, HasLogFunc e)
        => Pill -> Bool -> Serf.Flags -> Ship -> LegacyBootEvent
        -> RAcquire e (Serf e, EventLog, SerfState)
 booted pill lite flags ship boot = do
@@ -128,7 +127,7 @@ booted pill lite flags ship boot = do
 
 -- Resume an existing ship. ----------------------------------------------------
 
-resumed :: (HasPierConfig e, HasLogFunc e)
+resumed :: (HasStderrLogFunc e, HasPierConfig e, HasLogFunc e)
         => Maybe Word64 -> Serf.Flags
         -> RAcquire e (Serf e, EventLog, SerfState)
 resumed event flags = do
